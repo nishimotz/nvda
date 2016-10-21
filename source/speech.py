@@ -1167,6 +1167,7 @@ def getFormatFieldSpeech(attrs,attrsCache=None,formatConfig=None,unit=None,extra
 			if borderStyle:
 				text=borderStyle
 			else:
+				# Translators: Indicates that cell does not have border lines.
 				text=_("no border lines")
 			textList.append(text)
 	if  formatConfig["reportFontName"]:
