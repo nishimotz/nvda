@@ -17,4 +17,4 @@ build_script:
  - 7z a -tzip -r ..\output\nvda-py3.zip source Pipfile Pipfile.lock nvda-py3.cmd
  
 artifacts:
- - path: output\nvda-py3.zip
+ - path: output\*
