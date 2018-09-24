@@ -15,7 +15,11 @@ build_script:
      py -3.7-32 -m pip install pipenv
      py -3.7-32 -m pipenv install
      py -3.7-32 -m pipenv run python -m scons source
-     py -3.7-32 -m pipenv run python source\nvda.pyw -k
+     # py -3.7-32 -m pipenv run python source\nvda.pyw -k
+     # $?
+ - cd source
+ - 7z a -tzip -r ..\output\source.zip *.*
+ - cd ..
 
 artifacts:
  - path: output\*
