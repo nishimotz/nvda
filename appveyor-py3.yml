@@ -11,22 +11,11 @@ install:
 
 build_script:
  - ps: |
-     $sconsOutTargets = ""
-     $sconsArgs = ""
-     # We use cmd to run scons because PowerShell throws exceptions if warnings get dumped to stderr.
-     # It's possible to work around this, but the workarounds have annoying side effects.
-     Set-AppveyorBuildVariable "sconsOutTargets" $sconsOutTargets
-     Set-AppveyorBuildVariable "sconsArgs" $sconsArgs
- - 'echo scons args: %sconsArgs%'
- - py -3.7-32 -m pip install -U pip
- - py -3.7-32 -m pip install pipenv
- - py -3.7-32 -m pipenv install
- - mkdir output
- - py -3.7-32 -m pipenv run python source\nvda.pyw 2> output\error.txt
- #- py -3.7-32 -m pipenv run python scons.py source %sconsArgs%
- #- cd source
- #- 7z a -tzip -r ..\output\source.zip *.*
- #- cd ..
+     py -3.7-32 -m pip install -U pip
+     py -3.7-32 -m pip install pipenv
+     py -3.7-32 -m pipenv install
+     mkdir output
+     py -3.7-32 -m pipenv run python source\nvda.pyw 2> output\error.txt
 
 artifacts:
  - path: output\*
