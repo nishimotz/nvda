@@ -16,7 +16,7 @@ if getattr(sys, "frozen", None):
 	sys.path.append(sys.prefix)
 	os.chdir(sys.prefix)
 else:
-	import sourceEnv
+	#import sourceEnv
 	#We should always change directory to the location of this module (nvda.pyw), don't rely on sys.path[0]
 	os.chdir(os.path.normpath(os.path.dirname(__file__)))
 

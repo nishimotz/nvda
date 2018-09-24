@@ -27,7 +27,7 @@ outDir = sourceDir.Dir("louis")
 RE_AC_INIT = re.compile(r"^AC_INIT\(\[(?P<package>.*)\], \[(?P<version>.*)\], \[(?P<bugReport>.*)\], \[(?P<tarName>.*)\], \[(?P<url>.*)\]\)")
 def getLouisVersion():
 	# Get the version from configure.ac.
-	with file(louisRootDir.File("configure.ac").abspath) as f:
+	with open(louisRootDir.File("configure.ac").abspath) as f:
 		for line in f:
 			m = RE_AC_INIT.match(line)
 			if m:

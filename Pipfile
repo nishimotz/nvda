@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 six = "*"
 wxpython = "*"
+scons = "*"
+comtypes = "*"
+"pywin32" = "*"
+pyserial = "*"
+configobj = {ref = "5b5de48a", git = "https://github.com/DiffSK/configobj.git"}
 
 [dev-packages]
 
