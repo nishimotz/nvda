@@ -237,5 +237,5 @@ if signExec:
 env.Install(libInstallDir,webKitVBufBackend)
 
 if TARGET_ARCH=='x86':
-	env.SConscript('espeak/sconscript')
+	#env.SConscript('espeak/sconscript')
 	env.SConscript('liblouis/sconscript')
