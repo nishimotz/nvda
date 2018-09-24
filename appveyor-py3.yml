@@ -14,7 +14,7 @@ build_script:
  - py -3.7-32 -m pip install pipenv
  - py -3.7-32 -m pipenv install
  - py -3.7-32 -m pipenv run python -m scons source
- - 7z a -tzip -r ..\output\nvda-py3.zip source Pipfile Pipfile.lock nvda-py3.cmd
+ - 7z a -tzip -r output\nvda-py3.zip source Pipfile Pipfile.lock nvda-py3.cmd
  
 artifacts:
  - path: output\*
