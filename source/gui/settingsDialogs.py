@@ -948,7 +948,7 @@ class StringSynthSettingChanger(SynthSettingChanger):
 		if self.setting.name=="voice":
 			# Cancel speech first so that the voice will change immediately instead of the change being queued.
 			speech.cancelSpeech()
-			changeVoice(getSynth(),getattr(self.panel,"_%ss"%self.setting.name)[evt.GetSelection()].ID)
+			changeVoice(getSynth(),list(getattr(self.panel,"_%ss"%self.setting.name))[evt.GetSelection()].ID)
 			self.panel.updateVoiceSettings(changedSetting=self.setting.name)
 		else:
 			setattr(getSynth(),self.setting.name,getattr(self.panel,"_%ss"%self.setting.name)[evt.GetSelection()].ID)
@@ -2355,7 +2355,7 @@ class BrailleSettingsSubPanel(SettingsPanel):
 		tetherChoices = [x[1] for x in braille.handler.tetherValues]
 		self.tetherList = sHelper.addLabeledControl(tetherListText, wx.Choice, choices=tetherChoices)
 		tetherChoice=braille.handler.TETHER_AUTO if config.conf["braille"]["autoTether"] else config.conf["braille"]["tetherTo"]
-		selection = (x for x,y in enumerate(braille.handler.tetherValues) if y[0]==tetherChoice).next()
+		selection = (x for x,y in enumerate(braille.handler.tetherValues) if y[0]==tetherChoice).__next__()
 		try:
 			self.tetherList.SetSelection(selection)
 		except:

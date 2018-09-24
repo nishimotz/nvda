@@ -153,8 +153,8 @@ class MainFrame(wx.Frame):
 		# The menu pops up at the location of the mouse, which means it pops up at an unpredictable location.
 		# Therefore, move the mouse to the centre of the screen so that the menu will always pop up there.
 		left, top, width, height = api.getDesktopObject().location
-		x = width / 2
-		y = height / 2
+		x = int(width / 2)
+		y = int(height / 2)
 		winUser.setCursorPos(x, y)
 		self.evaluateUpdatePendingUpdateMenuItemCommand()
 		self.sysTrayIcon.onActivate(None)

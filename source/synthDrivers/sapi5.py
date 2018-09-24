@@ -155,7 +155,7 @@ class SynthDriver(SynthDriver):
 			return None
 
 	def _percentToRate(self, percent):
-		return (percent - 50) / 5
+		return int((percent - 50) / 5)
 
 	def _set_rate(self,rate):
 		self.tts.Rate = self._percentToRate(rate)
