@@ -17,6 +17,7 @@ try:
 except:
 	from logging import _nameToLevel as nameToLevel
 	from logging import _levelToName as levelToName
+from logging import getLevelName
 import inspect
 import winsound
 import traceback
