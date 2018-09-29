@@ -55,7 +55,7 @@ class LogViewer(wx.Frame):
 		pos = self.outputCtrl.GetInsertionPoint()
 		# Append new text to the output control which has been written to the log file since the last refresh.
 		try:
-			f = codecs.open(globalVars.appArgs.logFileName, "r", encoding="UTF-8")
+			f = codecs.open(globalVars.appArgs.logFileName, "r", encoding="UTF-8", errors="ignore")
 			f.seek(self._lastFilePos)
 			self.outputCtrl.AppendText(f.read())
 			self._lastFilePos = f.tell()
