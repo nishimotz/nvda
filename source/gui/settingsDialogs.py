@@ -2213,7 +2213,7 @@ class BrailleDisplaySelectionDialog(SettingsDialog):
 		if displayName != "auto":
 			displayCls = braille._getDisplayDriver(displayName)
 			try:
-				self.possiblePorts.extend(displayCls.getPossiblePorts().iteritems())
+				self.possiblePorts.extend(displayCls.getPossiblePorts().items())
 			except NotImplementedError:
 				pass
 		if self.possiblePorts:

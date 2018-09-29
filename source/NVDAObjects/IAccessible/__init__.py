@@ -1291,7 +1291,7 @@ the NVDAObject for IAccessible
 			d=self.decodedAccDescription
 			if d and not isinstance(d,str):
 				groupdict=d.groupdict()
-				return {x:int(y) for x,y in groupdict.iteritems() if y is not None}
+				return {x:int(y) for x,y in groupdict.items() if y is not None}
 		if self.allowIAccessibleChildIDAndChildCountForPositionInfo and self.IAccessibleChildID>0:
 			indexInGroup=self.IAccessibleChildID
 			parent=self.parent
@@ -1416,7 +1416,7 @@ the NVDAObject for IAccessible
 		info.append("IAccessible accName: %s" % ret)
 		try:
 			ret = iaObj.accRole(childID)
-			for name, const in oleacc.__dict__.iteritems():
+			for name, const in oleacc.__dict__.items():
 				if not name.startswith("ROLE_"):
 					continue
 				if ret == const:
@@ -1430,7 +1430,7 @@ the NVDAObject for IAccessible
 		try:
 			temp = iaObj.accState(childID)
 			ret = ", ".join(
-				name for name, const in oleacc.__dict__.iteritems()
+				name for name, const in oleacc.__dict__.items()
 				if name.startswith("STATE_") and temp & const
 			) + " (%d)" % temp
 		except Exception as e:
