@@ -909,11 +909,7 @@ class AggregatedSection(object):
 		self._cache[key] = val
 		return val
 
-<<<<<<< HEAD
-	def __iter__(self):
-=======
 	def items(self):
->>>>>>> 7db244ee32817ca09eedf29b928326fe92beb67e
 		keys = set()
 		# Start with the cached items.
 		for key, val in self._cache.items():
