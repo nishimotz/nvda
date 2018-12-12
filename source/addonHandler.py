@@ -221,13 +221,13 @@ class Addon(object):
 		self._extendedPackages = set()
 		self._isLoaded = False
 		manifest_path = os.path.join(path, MANIFEST_FILENAME)
-		with open(manifest_path) as f:
+		with open(manifest_path, encoding='utf-8') as f:
 			translatedInput = None
 			for translatedPath in _translatedManifestPaths():
 				p = os.path.join(self.path, translatedPath)
 				if os.path.exists(p):
 					log.debug("Using manifest translation from %s", p)
-					translatedInput = open(p, 'r')
+					translatedInput = open(p, 'r', encoding='utf-8')
 					break
 			self.manifest = AddonManifest(f, translatedInput)
 
