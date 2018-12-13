@@ -156,7 +156,7 @@ def _crashHandler(exceptionInfo):
 	# Write a minidump.
 	dumpPath = os.path.abspath(os.path.join(globalVars.appArgs.logFileName, "..", "nvda_crash.dmp"))
 	try:
-		with file(dumpPath, "w") as mdf:
+		with open(dumpPath, "w") as mdf:
 			mdExc = MINIDUMP_EXCEPTION_INFORMATION(ThreadId=threadId,
 				ExceptionPointers=exceptionInfo, ClientPointers=False)
 			if not ctypes.windll.DbgHelp.MiniDumpWriteDump(
