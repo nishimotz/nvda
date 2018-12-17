@@ -11,7 +11,6 @@
 """
 
 import itertools
-import array
 import ctypes
 import ctypes.wintypes
 import os
@@ -35,6 +34,7 @@ import api
 import appModules
 import watchdog
 import extensionPoints
+from fileUtils import getFileVersionInfo
 
 #Dictionary of processID:appModule paires used to hold the currently running modules
 runningTable={}
@@ -171,7 +171,7 @@ def fetchAppModule(processID,appName):
 	# First, check whether the module exists.
 	# We need to do this separately because even though an ImportError is raised when a module can't be found, it might also be raised for other reasons.
 	# Python 2.x can't properly handle unicode module names, so convert them.
-	modName = appName.encode("mbcs")
+	modName = appName
 
 	if doesAppModuleExist(modName):
 		try:
@@ -360,34 +360,9 @@ class AppModule(baseObject.ScriptableObject):
 		if not ctypes.windll.Kernel32.QueryFullProcessImageNameW(self.processHandle, 0, exeFileName, ctypes.byref(length)):
 			raise ctypes.WinError()
 		fileName = exeFileName.value
-		# Get size needed for buffer (0 if no info)
-		size = ctypes.windll.version.GetFileVersionInfoSizeW(fileName, None)
-		if not size:
-			raise RuntimeError("No version information")
-		# Create buffer
-		res = ctypes.create_string_buffer(size)
-		# Load file informations into buffer res
-		ctypes.windll.version.GetFileVersionInfoW(fileName, None, size, res)
-		r = ctypes.c_uint()
-		l = ctypes.c_uint()
-		# Look for codepages
-		ctypes.windll.version.VerQueryValueW(res, u'\\VarFileInfo\\Translation',
-		ctypes.byref(r), ctypes.byref(l))
-		if not l.value:
-			raise RuntimeError("No codepage")
-		# Take the first codepage (what else ?)
-		codepage = array.array('H', ctypes.string_at(r.value, 4))
-		codepage = "%04x%04x" % tuple(codepage)
-		# Extract product name and put it to self.productName
-		ctypes.windll.version.VerQueryValueW(res,
-			u'\\StringFileInfo\\%s\\ProductName' % codepage,
-			ctypes.byref(r), ctypes.byref(l))
-		self.productName = ctypes.wstring_at(r.value, l.value-1)
-		# Extract product version and put it to self.productVersion
-		ctypes.windll.version.VerQueryValueW(res,
-			u'\\StringFileInfo\\%s\\ProductVersion' % codepage,
-			ctypes.byref(r), ctypes.byref(l))
-		self.productVersion = ctypes.wstring_at(r.value, l.value-1)
+		fileinfo = getFileVersionInfo(fileName, "ProductName", "ProductVersion")
+		self.productName = fileinfo["ProductName"]
+		self.productVersion = fileinfo["ProductVersion"]
 
 	def _get_productName(self):
 		self._setProductInfo()
