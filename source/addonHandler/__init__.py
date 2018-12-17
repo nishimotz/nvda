@@ -321,13 +321,13 @@ class Addon(AddonBase):
 		self.path = os.path.abspath(path)
 		self._extendedPackages = set()
 		manifest_path = os.path.join(path, MANIFEST_FILENAME)
-		with open(manifest_path) as f:
+		with open(manifest_path, encoding='utf-8') as f:
 			translatedInput = None
 			for translatedPath in _translatedManifestPaths():
 				p = os.path.join(self.path, translatedPath)
 				if os.path.exists(p):
 					log.debug("Using manifest translation from %s", p)
-					translatedInput = open(p, 'r')
+					translatedInput = open(p, 'r', encoding='utf-8')
 					break
 			self.manifest = AddonManifest(f, translatedInput)
 
@@ -593,7 +593,7 @@ class AddonBundle(AddonBase):
 		"""
 		with zipfile.ZipFile(self._path, 'r') as z:
 			for info in z.infolist():
-				if isinstance(info.filename, str):
+				if isinstance(info.filename, bytes):
 					# #2505: Handle non-Unicode file names.
 					# Most archivers seem to use the local OEM code page, even though the spec says only cp437.
 					# HACK: Overriding info.filename is a bit ugly, but it avoids a lot of code duplication.
